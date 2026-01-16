@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>PlantVillage Disease Classifier</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        h2 { color: #2c3e50; margin-bottom: 12px; }
+        .box { padding: 16px; border: 1px solid #ddd; background: #fafafa; max-width: 520px; }
+        .result { margin-top: 24px; padding: 16px; border: 1px solid #ccc; background: #f9f9f9; }
+        img { margin-top: 10px; border: 1px solid #ddd; max-width: 320px; }
+        .hint { color: #666; font-size: 0.9em; margin-top: 8px; }
+    </style>
+</head>
+<body>
+    <h2>Upload a Leaf Image</h2>
+
+    <div class="box">
+        <form method="POST" enctype="multipart/form-data" id="uploadForm">
+            <input type="file" name="file" id="fileInput" accept="image/*" onchange="autoSubmit(); previewImage(event);">
+        </form>
+        <div id="preview"></div>
+        <div class="hint">Selecting a file will automatically submit and process it.</div>
+    </div>
+
+    {% if result %}
+    <div class="result">
+        <h3>Prediction Result</h3>
+        <p>{{ result }}</p>
+        {% if img_path %}
+            <img src="{{ img_path }}" alt="Uploaded image">
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <script>
+        function autoSubmit() {
+            document.getElementById("uploadForm").submit();
+        }
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(){
+                document.getElementById('preview').innerHTML =
+                    '<h4>Preview</h4><img src="'+ reader.result +'" alt="Preview">';
+            };
+            reader.readAsDataURL(file);
+        }
+    </script>
+</body>
+</html>
