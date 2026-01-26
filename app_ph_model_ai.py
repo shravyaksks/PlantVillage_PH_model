@@ -12,7 +12,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 if not os.path.exists(UPLOAD_FOLDER): 
 	os.makedirs(UPLOAD_FOLDER)
 
-MODEL_PATH = "PH_modeeel.keras"
+MODEL_PATH = "PH_model.keras"
 model = load_model(MODEL_PATH)
 
 class_names = [
